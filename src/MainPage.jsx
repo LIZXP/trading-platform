@@ -1,7 +1,7 @@
-import { Box, Stack, IconButton } from "@mui/material";
 import React, { useState, useRef } from "react";
-import MainPageNavBar from "./Components/MainPageNavBar";
+import { Box, Stack, IconButton } from "@mui/material";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import MainPageNavBar from "./Components/MainPageNavBar";
 import pokemonVideo from './assets/pokemonVideo.mp4';
 
 function MainPage() {
@@ -21,25 +21,25 @@ function MainPage() {
       <Stack>
         <MainPageNavBar />
       </Stack>
-      <Stack>
+      <Stack sx={{ position: 'relative' }}>
         <video
           ref={videoRef}
           src={pokemonVideo}
           loop
           autoPlay
           muted={isMuted}
-          style={{ height: '800px', width: 'auto', marginTop: "64px" }}  // Adjust the height as necessary
+          style={{ marginTop: "64px" }}
         />
         <IconButton
           color="primary"
           aria-label="Toggle sound"
           component="span"
           onClick={handleSoundToggle}
-          sx={{ position: 'absolute', bottom: 120, left: 120 }}
+          sx={{ position: 'absolute', bottom: 30, left: 30 }}
         >
           {isMuted ? <VolumeOff style={{ fontSize: 80, fill: 'red' }} /> : <VolumeUp style={{ fontSize: 80, fill: 'red' }} />}
         </IconButton>
-      </Stack>
+      </Stack >
     </Box>
   );
 }

@@ -1,16 +1,23 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Stack } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar, Box, Toolbar, Typography, Button, Stack } from '@mui/material';
 import logo from '../assets/logo.svg';
 import './styles/mainPageStyle.css';
+import RegisterDialog from './Dialogs/RegisterDialog'
 
 export default function ButtonAppBar() {
+    const [signUpOpen, setsignUpOpen] = useState(false);
+    const [logInOpen, setlogInOpen] = useState(false);
+
+    const handleDialogToggle = (dialog, isOpen) => {
+        if (dialog === 'signUp') {
+            setsignUpOpen(isOpen);
+        } else if (dialog === 'login') {
+            setlogInOpen(isOpen);
+        }
+    };
+
     return (
-        <Box sx={{ flexGrow: 1 }} position="sticky" >
+        <Box sx={{ flexGrow: 1, zIndex: "10" }} position="sticky" >
             <AppBar sx={{ background: "grey" }}>
                 <Toolbar>
                     <img src={logo} alt="CJP logo" style={{ height: "51px" }} />
@@ -29,11 +36,12 @@ export default function ButtonAppBar() {
                         Fun Trading
                     </Typography>
                     <Stack direction="row" spacing={2} sx={{ ml: 'auto', mr: "120px" }}>
-                        <Button color="inherit">Sign Up</Button>
+                        <Button color="inherit" onClick={() => handleDialogToggle('signUp', true)}>Sign Up</Button>
                         <Button color="inherit">Login</Button>
                     </Stack>
                 </Toolbar>
             </AppBar>
+            {signUpOpen ? <RegisterDialog signUpOpen={signUpOpen} handleDialogToggle={handleDialogToggle} /> : null}
         </Box>
     );
 }
