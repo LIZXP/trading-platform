@@ -1,0 +1,54 @@
+/* styles.css */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.shake {
+    animation: shake 0.01s ease-in-out 0s 10;
+}
+
+.fadeInOut {
+    animation: fadeInOut 2s ease-in-out 0s 1 forwards;
+}
+
+.errorMsg {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}

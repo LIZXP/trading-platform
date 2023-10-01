@@ -3,6 +3,7 @@ import { AppBar, Box, Toolbar, Typography, Button, Stack } from '@mui/material';
 import logo from '../assets/logo.svg';
 import './styles/mainPageStyle.css';
 import RegisterDialog from './Dialogs/RegisterDialog'
+import LogInDialog from './Dialogs/LogInDialog';
 
 export default function ButtonAppBar() {
     const [signUpOpen, setsignUpOpen] = useState(false);
@@ -37,11 +38,12 @@ export default function ButtonAppBar() {
                     </Typography>
                     <Stack direction="row" spacing={2} sx={{ ml: 'auto', mr: "120px" }}>
                         <Button color="inherit" onClick={() => handleDialogToggle('signUp', true)}>Sign Up</Button>
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit" onClick={() => handleDialogToggle('login', true)}>Login</Button>
                     </Stack>
                 </Toolbar>
             </AppBar>
             {signUpOpen ? <RegisterDialog signUpOpen={signUpOpen} handleDialogToggle={handleDialogToggle} /> : null}
+            {logInOpen ? <LogInDialog logInOpen={logInOpen} handleDialogToggle={handleDialogToggle} /> : null}
         </Box>
     );
 }
