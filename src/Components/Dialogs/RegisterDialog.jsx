@@ -117,7 +117,11 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
                             horizontal: 'center',
                         }}
                     >
-                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(6, 1fr)',
+                            gap: '12px',
+                        }}>
                             {avatarsList.map((obj, i) => (
                                 <MenuItem key={i} onClick={() => handleAvatarClick(obj.name)}>
                                     <img style={{ width: '51px' }} src={obj.src} alt={`avatar${i}`} />
