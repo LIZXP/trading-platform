@@ -20,9 +20,9 @@ const storage = getStorage(app);
 export { db };
 
 // Create Single Document
-export const createDocument = async (db, data) => {
-    const docRef = doc(db, "collection", "document-id");
-    await setDoc(docRef, data);
+export const createDocument = async (db, collectionName, data) => {
+    const docRef = await addDoc(collection(db, collectionName), data);
+    return docRef.id;
 };
 
 // Create Document in Collection
@@ -46,9 +46,15 @@ export const readDocument = async (db) => {
 };
 
 // Read Collection
-export const readCollection = async (db) => {
-    const querySnapshot = await getDocs(collection(db, "collection"));
+export const readCollection = async (db, collectionName) => {
+    const querySnapshot = await getDocs(collection(db, collectionName));
     return querySnapshot.docs.map(doc => doc.data());
+};
+
+export const registerUserValidation = async (db, collectionName, userName) => {
+    const q = query(collection(db, collectionName), where("userName", "==", userName));
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty;
 };
 
 // Update Document

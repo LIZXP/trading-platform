@@ -8,15 +8,21 @@ export default function LogInDialog({ logInOpen, handleDialogToggle }) {
     const [shake, setShake] = useState(false);
 
     useEffect(() => {
+        let shakeTimeoutId, errorMsgTimeoutId;
+
         if (errorMsg) {
             setShake(true);
-            setTimeout(() => {
+            shakeTimeoutId = setTimeout(() => {
                 setShake(false);
             }, 1000);
-            setTimeout(() => {
+            errorMsgTimeoutId = setTimeout(() => {
                 setErrorMsg('');
             }, 2000);
         }
+        return () => {
+            clearTimeout(shakeTimeoutId);
+            clearTimeout(errorMsgTimeoutId);
+        };
     }, [errorMsg]);
 
     const checkEmptyFields = () => {

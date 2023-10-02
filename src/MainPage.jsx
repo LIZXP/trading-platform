@@ -21,14 +21,14 @@ function MainPage() {
       <Stack>
         <MainPageNavBar />
       </Stack>
-      <Stack sx={{ position: 'relative' }}>
+      <Stack sx={{ position: 'relative', height: 'calc(100vh - 64px)' }}>
         <video
           ref={videoRef}
           src={pokemonVideo}
           loop
           autoPlay
           muted={isMuted}
-          style={{ marginTop: "64px" }}
+          style={{ marginTop: "64px", height: "100%", width: "100%", objectFit: 'cover' }}
         />
         <IconButton
           color="primary"

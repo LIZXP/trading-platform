@@ -1,11 +1,63 @@
+import bullbasaur from '../assets/bullbasaur.png';
+import caterpie from '../assets/caterpie.png';
+import ditto from '../assets/ditto.png';
+import eball from '../assets/eball.png';
+import eggIncubator from '../assets/egg-incubator.png';
+import gunger from '../assets/gunger.png';
+import mankey from '../assets/mankey.png';
+import meowth from '../assets/meowth.png';
+import pikachu from '../assets/pikachu.png';
+import pokemonGo from '../assets/pokemon-go.png';
+import psyduck from '../assets/psyduck.png';
+import seal from '../assets/seal.png';
+import snorlax from '../assets/snorlax.png';
+import superball from '../assets/superball.png';
+import ultraBall from '../assets/ultra-ball.png';
+import zubat from '../assets/zubat.png';
+import ethan from '../assets/crown.png';
+import erson from '../assets/insignia.png';
+
 export const avatarsList = [
-    " https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-alien.svg?alt=media&token=1ca16980-0a07-4720-a1a6-d58336edf931&_gl=1*z081gh*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTEyMi42MC4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-baby-boy.svg?alt=media&token=80cdf118-921a-406c-8f90-269b98d3922c&_gl=1*zbgv8m*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTI3MC42MC4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-boy.svg?alt=media&token=3bcd0206-4cf3-44d4-82d2-9794c76b939e&_gl=1*zzzeco*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTI5MC40MC4wLjA.", "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-frankenstein.svg?alt=media&token=5e83348d-d8a0-4dee-b93f-98c417d47e2e&_gl=1*1gfv3qv*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTMwMS4yOS4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-girl.svg?alt=media&token=c53b60d8-e701-4076-8c2b-d14ca5788f9c&_gl=1*fgwomn*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTMxNS4xNS4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-magic-ball.svg?alt=media&token=6011ab9e-c187-4388-8c96-dad76c6064e5&_gl=1*i8wuxz*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTMyOS4xLjAuMA..",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-monster.svg?alt=media&token=643da0cc-ed47-426c-8504-25e812058ea2&_gl=1*niglbi*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTMzOS41MS4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-robot.svg?alt=media&token=0ecc70a0-2689-462f-981b-a7ddd4a807b5&_gl=1*gszhvj*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTM1MC40MC4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-serial-killer.svg?alt=media&token=60857d55-1723-4528-a2d2-dbcf81b1fde3&_gl=1*xeovkl*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTM2MS4yOS4wLjA.",
-    "https://firebasestorage.googleapis.com/v0/b/fun-trading-platform.appspot.com/o/avatars%2Freshot-icon-timed-game.svg?alt=media&token=f6c2f647-891f-44b3-a890-f9f5cbde438b&_gl=1*1dje5g3*_ga*MjQ4NzI4MzEuMTY5NTc5NjQ0MA..*_ga_CW55HF8NVT*MTY5NjEzNTY4NC4zLjEuMTY5NjE0NTM3MS4xOS4wLjA."
+    { name: 'Bullbasaur', src: bullbasaur },
+    { name: 'Caterpie', src: caterpie },
+    { name: 'Ditto', src: ditto },
+    { name: 'Eball', src: eball },
+    { name: 'Egg Incubator', src: eggIncubator },
+    { name: 'Gunger', src: gunger },
+    { name: 'Mankey', src: mankey },
+    { name: 'Meowth', src: meowth },
+    { name: 'Pikachu', src: pikachu },
+    { name: 'Pokemon Go', src: pokemonGo },
+    { name: 'Psyduck', src: psyduck },
+    { name: 'Seal', src: seal },
+    { name: 'Snorlax', src: snorlax },
+    { name: 'Superball', src: superball },
+    { name: 'Ultra Ball', src: ultraBall },
+    { name: 'Zubat', src: zubat }
 ];
+
+export const FullAvatarsList = [
+    { name: 'Bullbasaur', src: bullbasaur },
+    { name: 'Caterpie', src: caterpie },
+    { name: 'Ditto', src: ditto },
+    { name: 'Eball', src: eball },
+    { name: 'Egg Incubator', src: eggIncubator },
+    { name: 'Gunger', src: gunger },
+    { name: 'Mankey', src: mankey },
+    { name: 'Meowth', src: meowth },
+    { name: 'Pikachu', src: pikachu },
+    { name: 'Pokemon Go', src: pokemonGo },
+    { name: 'Psyduck', src: psyduck },
+    { name: 'Seal', src: seal },
+    { name: 'Snorlax', src: snorlax },
+    { name: 'Superball', src: superball },
+    { name: 'Ultra Ball', src: ultraBall },
+    { name: 'Zubat', src: zubat },
+    { name: 'ethan', src: ethan },
+    { name: 'erson', src: erson }
+];
+
+export const getAvatarSrc = (avatarName, avatarsList) => {
+    const avatarSrc = avatarsList.find(obj => obj.name === avatarName).src;
+    return avatarSrc;
+};

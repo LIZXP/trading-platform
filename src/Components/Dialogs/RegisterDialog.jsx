@@ -1,27 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { avatarsList } from '../../FireStoredbFiles/avatarsList';
+import { FullAvatarsList, avatarsList, getAvatarSrc } from '../../FireStoredbFiles/avatarsList';
 import { Box, TextField, Dialog, DialogTitle, Button, Avatar, Popover, Stack, MenuItem } from '@mui/material';
 import './mainpageDialogStyles.css'
+import { createDocument, db, registerUserValidation } from '../../FireStoredbFiles/firestore';
+import PopUp from '../Basic/PopupMessage/PopupMessage';
 
 export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [aka, setAka] = useState('');
-    const [avatar, setAvatar] = useState(avatarsList[0]);
+    const [avatar, setAvatar] = useState(avatarsList[0].name);
     const [anchorEl, setAnchorEl] = useState(null);
     const [errorMsg, setErrorMsg] = useState("");
     const [shake, setShake] = useState(false);
+    const [popUp, setPopUp] = useState({ show: false, message: '', fontColor: '#000', duration: 3000 });
 
     useEffect(() => {
+        let shakeTimeoutId, errorMsgTimeoutId;
+
         if (errorMsg) {
             setShake(true);
-            setTimeout(() => {
+            shakeTimeoutId = setTimeout(() => {
                 setShake(false);
             }, 1000);
-            setTimeout(() => {
+            errorMsgTimeoutId = setTimeout(() => {
                 setErrorMsg('');
             }, 2000);
         }
+        return () => {
+            clearTimeout(shakeTimeoutId);
+            clearTimeout(errorMsgTimeoutId);
+        };
     }, [errorMsg]);
 
     const handleClick = (event) => {
@@ -32,8 +41,8 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
         setAnchorEl(null);
     };
 
-    const handleAvatarClick = (avatarUrl) => {
-        setAvatar(avatarUrl);
+    const handleAvatarClick = (avatarName) => {
+        setAvatar(avatarName);
         handleClose();
     };
 
@@ -46,16 +55,48 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
         return emptyFields;
     };
 
-    const handleSubmit = (event) => {
+    const clearInputField = () => {
+        setUsername("");
+        setPassword("");
+        setAka("");
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const emptyFields = checkEmptyFields();
         if (emptyFields.length > 0) {
             const fieldNames = emptyFields.join(", ");
-            setErrorMsg(`Please fill or Select the required field: ${fieldNames}`);
+            showPopUp(`Please fill or Select the required field: ${fieldNames}`, '#ff9800');
             return;
         } else {
-            console.log({ username, password, aka, avatar });
+            const foundUser = await registerUserValidation(db, "users", username);
+            if (foundUser) {
+                showPopUp('UserName already existed', '#f44336');
+            } else {
+                // const saltRounds = 10;
+                // const salt = bcrypt.genSaltSync(saltRounds);
+                // const hashPassword = bcrypt.hashSync(password, salt);
+                await createDocument(db, "users", {
+                    userName: username,
+                    passWord: password,
+                    aka: aka,
+                    adminMsg: "",
+                    active: true,
+                    avatar: avatar,
+                    isAdmin: false
+                });
+                showPopUp('User Created!', '#4CAF50');
+                clearInputField();
+                handleClose();
+            }
         }
+    };
+
+    const showPopUp = (message, fontColor = '#000', duration = 3000) => {
+        setPopUp({ show: true, message, fontColor, duration });
+        setTimeout(() => {
+            setPopUp({ show: false, message: '', fontColor: '#000', duration: 3000 });
+        }, duration);
     };
 
     return (
@@ -78,16 +119,16 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
                         }}
                     >
                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                            {avatarsList.map((imgUrl, i) => (
-                                <MenuItem key={i} onClick={() => handleAvatarClick(imgUrl)}>
-                                    <img style={{ width: '51px' }} src={imgUrl} alt={`avatar${i}`} />
+                            {avatarsList.map((obj, i) => (
+                                <MenuItem key={i} onClick={() => handleAvatarClick(obj.name)}>
+                                    <img style={{ width: '51px' }} src={obj.src} alt={`avatar${i}`} />
                                 </MenuItem>
                             ))}
                         </div>
                     </Popover>
                     <Stack sx={{ marginBottom: "21px" }} alignItems="center">
                         <span style={{ marginBottom: "10px" }}>Select Avatar</span>
-                        {avatar && <Avatar sx={{ width: 72, height: 72 }} src={avatar} alt="Selected avatar" aria-describedby={anchorEl ? 'avatar-popover' : undefined} onClick={handleClick} />}
+                        {avatar && <Avatar sx={{ width: 72, height: 72 }} src={getAvatarSrc(avatar, FullAvatarsList)} alt="Selected avatar" aria-describedby={anchorEl ? 'avatar-popover' : undefined} onClick={handleClick} />}
                     </Stack>
                 </div>
                 <TextField
@@ -131,6 +172,12 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
                     </div>
                 )}
             </Box>
+            <PopUp
+                message={popUp.message}
+                show={popUp.show}
+                fontColor={popUp.fontColor}
+                duration={popUp.duration}
+            />
         </Dialog>
     );
 }
