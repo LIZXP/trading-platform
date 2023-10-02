@@ -3,10 +3,13 @@ import { FullAvatarsList, avatarsList, getAvatarSrc } from '../../FireStoredbFil
 import { Box, TextField, Dialog, DialogTitle, Button, Avatar, Popover, Stack, MenuItem } from '@mui/material';
 import './mainpageDialogStyles.css'
 import { createDocument, db, registerUserValidation } from '../../FireStoredbFiles/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import PopUp from '../Basic/PopupMessage/PopupMessage';
+import { auth } from "../../FireStoredbFiles/firestore";
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
-    const [username, setUsername] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [aka, setAka] = useState('');
     const [avatar, setAvatar] = useState(avatarsList[0].name);
@@ -48,7 +51,7 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
 
     const checkEmptyFields = () => {
         let emptyFields = [];
-        if (!username) emptyFields.push("Username");
+        if (!userEmail) emptyFields.push("UserEmail");
         if (!password) emptyFields.push("Password");
         if (!aka) emptyFields.push("AKA");
         if (!avatar) emptyFields.push("Avatar");
@@ -56,7 +59,7 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
     };
 
     const clearInputField = () => {
-        setUsername("");
+        setUserEmail("");
         setPassword("");
         setAka("");
     };
@@ -66,28 +69,24 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
         const emptyFields = checkEmptyFields();
         if (emptyFields.length > 0) {
             const fieldNames = emptyFields.join(", ");
-            showPopUp(`Please fill or Select the required field: ${fieldNames}`, '#ff9800');
+            showPopUp(`Please fill or Select the required field: ${fieldNames}`, '#fc5012');
             return;
         } else {
-            const foundUser = await registerUserValidation(db, "users", username);
-            if (foundUser) {
-                showPopUp('UserName already existed', '#f44336');
-            } else {
-                // const saltRounds = 10;
-                // const salt = bcrypt.genSaltSync(saltRounds);
-                // const hashPassword = bcrypt.hashSync(password, salt);
-                await createDocument(db, "users", {
-                    userName: username,
-                    passWord: password,
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, userEmail, password);
+                const user = userCredential.user;
+                await setDoc(doc(db, "users", user.uid), {
                     aka: aka,
                     adminMsg: "",
-                    active: true,
                     avatar: avatar,
                     isAdmin: false
                 });
                 showPopUp('User Created!', '#4CAF50');
                 clearInputField();
                 handleClose();
+            } catch (error) {
+                showPopUp(error.message, '#f44336');
+                clearInputField();
             }
         }
     };
@@ -132,15 +131,15 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
                     </Stack>
                 </div>
                 <TextField
-                    label="Username"
+                    label="Email"
                     variant="outlined"
                     fullWidth
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     sx={{ mb: 2 }}
                 />
                 <TextField
-                    label="Password"
+                    label="Password (min 6 characters)"
                     variant="outlined"
                     type="password"
                     fullWidth
@@ -161,7 +160,7 @@ export default function RegistrationDialog({ signUpOpen, handleDialogToggle }) {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        onClick={handleSubmit}
+                        onClick={(e) => handleSubmit(e)}
                     >
                         Register
                     </Button>
