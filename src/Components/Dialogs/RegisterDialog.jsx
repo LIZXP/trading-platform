@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FullAvatarsList, avatarsList, getAvatarSrc } from '../../FireStoredbFiles/avatarsList';
 import { Box, TextField, Dialog, DialogTitle, Button, Avatar, Popover, Stack, MenuItem } from '@mui/material';
 import './mainpageDialogStyles.css'
-import { createDocument, db, registerUserValidation } from '../../FireStoredbFiles/firestore';
+import { db } from '../../FireStoredbFiles/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import PopUp from '../Basic/PopupMessage/PopupMessage';
 import { auth } from "../../FireStoredbFiles/firestore";

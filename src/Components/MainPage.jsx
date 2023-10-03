@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Box, Stack, IconButton } from "@mui/material";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
-import MainPageNavBar from "./Components/MainPageNavBar";
-import pokemonVideo from './assets/pokemonVideo.mp4';
+import MainPageNavBar from "./MainPageNavBar";
+import pokemonVideo from '../assets/pokemonVideo.mp4';
+import "./styles/mainPageStyle.css";
 
 function MainPage() {
   const [isMuted, setIsMuted] = useState(true);
@@ -17,7 +18,7 @@ function MainPage() {
   };
 
   return (
-    <Box>
+    <Box className="loginPage-Container">
       <Stack>
         <MainPageNavBar />
       </Stack>
