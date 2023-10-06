@@ -1,6 +1,7 @@
 import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { FullAvatarsList, getAvatarSrc } from '../../FireStoredbFiles/avatarsList';
+import logo from '../../assets/logo.svg';
 import './Styles/AppMain.css'
 
 const AppMain = () => {
@@ -8,7 +9,8 @@ const AppMain = () => {
         <Grid container className="main-content-container">
             <Grid item xs={12} sx={{ border: "1px solid red", minHeight: "10vh" }}>
                 <Stack direction={"row"} justifyContent={"space-between"}>
-                    <Stack direction={"row"} className="neon" ml={"20px"}>
+                    <Stack direction={"row"} className="neon" ml={"10px"} alignItems={"center"}>
+                        <img src={logo} alt="CJP logo" style={{ height: "60px", marginBottom: "10px", marginRight: "5px" }} />
                         <p className="advanced-neon-text">Fun Trading</p>
                     </Stack>
                     <Stack>
