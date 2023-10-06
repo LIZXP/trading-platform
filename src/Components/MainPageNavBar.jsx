@@ -25,12 +25,13 @@ export default function ButtonAppBar() {
                     <Typography
                         variant="h6"
                         component="span"
+                        className='advanced-neon-text'
                         sx={{
                             fontFamily: 'Rubik',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             textDecoration: 'none',
-                            fontSize: "30px",
+                            fontSize: "25px",
                             marginTop: "auto",
                             marginLeft: "10px",
                         }}>

@@ -1,11 +1,21 @@
-import { Grid, Stack } from '@mui/material';
+import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { FullAvatarsList, getAvatarSrc } from '../../FireStoredbFiles/avatarsList';
+import './Styles/AppMain.css'
 
 const AppMain = () => {
     return (
         <Grid container className="main-content-container">
             <Grid item xs={12} sx={{ border: "1px solid red", minHeight: "10vh" }}>
-                <Stack></Stack>
+                <Stack direction={"row"} justifyContent={"space-between"}>
+                    <Stack direction={"row"} className="neon" ml={"20px"}>
+                        <p className="advanced-neon-text">Fun Trading</p>
+                    </Stack>
+                    <Stack>
+                        <Avatar alt="Remy Sharp" src={getAvatarSrc('ethan', FullAvatarsList)} sx={{ margin: "15px 20px 2px", width: 36, height: 36, border: "3px solid green", padding: "5px" }} />
+                        <Typography variant='span' textAlign={"center"}>Ethan</Typography >
+                    </Stack>
+                </Stack>
             </Grid>
             <Grid item xs={12} sx={{ border: "3px solid green", minHeight: "90vh", overflow: "auto" }}>
                 <Grid container sx={{ height: '100%' }}>
